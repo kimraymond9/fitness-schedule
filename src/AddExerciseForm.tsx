@@ -3,17 +3,11 @@ import {
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import {
-  ChangeEvent, useState, FC,
+  ChangeEvent, useState, FC, FormEvent,
 } from 'react';
 import Box from '@material-ui/core/Box';
-import useLocalStorage from './hooks/useLocalStorage';
-
-interface Exercise {
-  name: string,
-  sets: string,
-  reps: string,
-  weight: string
-}
+import useExercises from './hooks/useExercises';
+import { Exercise } from './model/exercise';
 
 const AddExerciseForm: FC = () => {
   const [name, setName] = useState('');
@@ -21,16 +15,17 @@ const AddExerciseForm: FC = () => {
   const [reps, setReps] = useState('');
   const [weight, setWeight] = useState('');
 
-  const [localStorageExercise, setLocalStorageExercise] = useLocalStorage('monday', []);
+  const [getExercisesForDay, setExercisesForDay] = useExercises();
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
     const exercise: Exercise = {
       name,
       sets,
       reps,
       weight,
     };
-    setLocalStorageExercise(localStorageExercise.concat(exercise));
+    setExercisesForDay('monday', [...getExercisesForDay('monday'), exercise]);
   };
 
   const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
