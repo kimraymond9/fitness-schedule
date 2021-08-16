@@ -28,6 +28,10 @@
             {
                 "code": 150
             }
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
         ]
     }
 }
