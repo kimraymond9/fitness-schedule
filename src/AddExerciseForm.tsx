@@ -1,69 +1,104 @@
 import {
-  Button, FormControl, FormGroup, TextField,
+  Button, TextField,
 } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 import {
   ChangeEvent, useState, FC,
 } from 'react';
+import Box from '@material-ui/core/Box';
 import useLocalStorage from './hooks/useLocalStorage';
 
+interface Exercise {
+  name: string,
+  sets: string,
+  reps: string,
+  weight: string
+}
+
 const AddExerciseForm: FC = () => {
-  const [formValues, setFormValues] = useState({ description: '', sets: '', reps: '' });
+  const [name, setName] = useState('');
+  const [sets, setSets] = useState('');
+  const [reps, setReps] = useState('');
+  const [weight, setWeight] = useState('');
 
   const [localStorageExercise, setLocalStorageExercise] = useLocalStorage('monday', []);
 
-  const { description, sets, reps } = formValues;
-
   const handleFormSubmit = () => {
-    const exercise = {
-      description,
+    const exercise: Exercise = {
+      name,
       sets,
       reps,
+      weight,
     };
     setLocalStorageExercise(localStorageExercise.concat(exercise));
   };
 
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormValues({ ...formValues, [name]: value });
+  const onNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  const onSetsChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSets(event.target.value);
+  };
+
+  const onRepsChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setReps(event.target.value);
+  };
+
+  const onWeightChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setWeight(event.target.value);
   };
 
   return (
-    <FormControl fullWidth>
-      <FormGroup>
+    <form onSubmit={handleFormSubmit}>
+      <Box>
         <TextField
-          margin="dense"
-          id="standard-basic"
-          label="Description"
-          name="description"
-          value={formValues.description}
-          onChange={onInputChange}
+          margin="normal"
+          fullWidth
+          required
+          label="Name"
+          name="name"
+          value={name}
+          onChange={onNameChange}
         />
+      </Box>
+      <Box display="flex" alignItems="center" mb={1}>
         <TextField
-          margin="dense"
-          id="standard-basic"
+          style={{ flexGrow: 1 }}
           label="Sets"
           name="sets"
-          value={formValues.sets}
-          onChange={onInputChange}
+          type="number"
+          value={sets}
+          onChange={onSetsChange}
         />
+        <ClearIcon />
         <TextField
-          margin="dense"
-          id="standard-basic"
+          style={{ flexGrow: 1 }}
           label="Reps"
           name="reps"
-          value={formValues.reps}
-          onChange={onInputChange}
+          type="number"
+          value={reps}
+          onChange={onRepsChange}
         />
-        <Button
-          variant="contained"
-          onClick={handleFormSubmit}
-          type="submit"
-          color="primary"
-        >
-          ADD
-        </Button>
-      </FormGroup>
-    </FormControl>
+        <ClearIcon />
+        <TextField
+          style={{ flexGrow: 1 }}
+          label="Weight"
+          name="weight"
+          type="number"
+          value={weight}
+          onChange={onWeightChange}
+        />
+      </Box>
+      <Button
+        fullWidth
+        variant="contained"
+        type="submit"
+        color="primary"
+      >
+        add
+      </Button>
+    </form>
   );
 };
 
