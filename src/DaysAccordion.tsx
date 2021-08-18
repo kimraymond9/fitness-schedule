@@ -16,13 +16,21 @@ import ExercisesContext from './context/ExercisesContext';
 const DaysAccordion = () => {
   const { exercises } = useContext(ExercisesContext);
 
+  const mapFunction = ((exercise: Exercise) => (
+    <TableRow key={exercise.id}>
+      <TableCell>{exercise.name}</TableCell>
+      <TableCell align="right">{exercise.sets}</TableCell>
+      <TableCell align="right">{exercise.reps}</TableCell>
+      <TableCell align="right">{exercise.weight}</TableCell>
+    </TableRow>
+  )
+  );
+
   return (
     <Box mt={2}>
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
         >
           <Typography>Monday</Typography>
         </AccordionSummary>
@@ -37,14 +45,7 @@ const DaysAccordion = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {exercises.monday.map((exercise: Exercise) => (
-                <TableRow key={exercise.id}>
-                  <TableCell>{exercise.name}</TableCell>
-                  <TableCell align="right">{exercise.sets}</TableCell>
-                  <TableCell align="right">{exercise.reps}</TableCell>
-                  <TableCell align="right">{exercise.weight}</TableCell>
-                </TableRow>
-              ))}
+              {exercises.monday.map(mapFunction)}
             </TableBody>
           </Table>
         </AccordionDetails>
@@ -52,8 +53,6 @@ const DaysAccordion = () => {
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
         >
           <Typography>Tuesday</Typography>
         </AccordionSummary>
@@ -68,14 +67,7 @@ const DaysAccordion = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {exercises.tuesday.map((exercise: Exercise) => (
-                <TableRow key={exercise.id}>
-                  <TableCell>{exercise.name}</TableCell>
-                  <TableCell align="right">{exercise.sets}</TableCell>
-                  <TableCell align="right">{exercise.reps}</TableCell>
-                  <TableCell align="right">{exercise.weight}</TableCell>
-                </TableRow>
-              ))}
+              {exercises.tuesday.map(mapFunction)}
             </TableBody>
           </Table>
         </AccordionDetails>
@@ -83,8 +75,6 @@ const DaysAccordion = () => {
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel3bh-content"
-          id="panel3bh-header"
         >
           <Typography>Wednesday</Typography>
         </AccordionSummary>
@@ -99,14 +89,7 @@ const DaysAccordion = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {exercises.wednesday.map((exercise: Exercise) => (
-                <TableRow key={exercise.id}>
-                  <TableCell>{exercise.name}</TableCell>
-                  <TableCell align="right">{exercise.sets}</TableCell>
-                  <TableCell align="right">{exercise.reps}</TableCell>
-                  <TableCell align="right">{exercise.weight}</TableCell>
-                </TableRow>
-              ))}
+              {exercises.wednesday.map(mapFunction)}
             </TableBody>
           </Table>
         </AccordionDetails>
@@ -114,8 +97,6 @@ const DaysAccordion = () => {
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
         >
           <Typography>Thursday</Typography>
         </AccordionSummary>
@@ -130,14 +111,7 @@ const DaysAccordion = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {exercises.thursday.map((exercise: Exercise) => (
-                <TableRow key={exercise.id}>
-                  <TableCell>{exercise.name}</TableCell>
-                  <TableCell align="right">{exercise.sets}</TableCell>
-                  <TableCell align="right">{exercise.reps}</TableCell>
-                  <TableCell align="right">{exercise.weight}</TableCell>
-                </TableRow>
-              ))}
+              {exercises.thursday.map(mapFunction)}
             </TableBody>
           </Table>
         </AccordionDetails>
@@ -145,8 +119,6 @@ const DaysAccordion = () => {
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
         >
           <Typography>Friday</Typography>
         </AccordionSummary>
@@ -161,14 +133,7 @@ const DaysAccordion = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {exercises.friday.map((exercise: Exercise) => (
-                <TableRow key={exercise.id}>
-                  <TableCell>{exercise.name}</TableCell>
-                  <TableCell align="right">{exercise.sets}</TableCell>
-                  <TableCell align="right">{exercise.reps}</TableCell>
-                  <TableCell align="right">{exercise.weight}</TableCell>
-                </TableRow>
-              ))}
+              {exercises.friday.map(mapFunction)}
             </TableBody>
           </Table>
         </AccordionDetails>
@@ -176,8 +141,6 @@ const DaysAccordion = () => {
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
         >
           <Typography>Saturday</Typography>
         </AccordionSummary>
@@ -192,14 +155,7 @@ const DaysAccordion = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {exercises.saturday.map((exercise: Exercise) => (
-                <TableRow key={exercise.id}>
-                  <TableCell>{exercise.name}</TableCell>
-                  <TableCell align="right">{exercise.sets}</TableCell>
-                  <TableCell align="right">{exercise.reps}</TableCell>
-                  <TableCell align="right">{exercise.weight}</TableCell>
-                </TableRow>
-              ))}
+              {exercises.saturday.map(mapFunction)}
             </TableBody>
           </Table>
         </AccordionDetails>
@@ -207,8 +163,6 @@ const DaysAccordion = () => {
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel4bh-content"
-          id="panel4bh-header"
         >
           <Typography>Sunday</Typography>
         </AccordionSummary>
@@ -223,14 +177,7 @@ const DaysAccordion = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {exercises.sunday.map((exercise: Exercise) => (
-                <TableRow key={exercise.id}>
-                  <TableCell>{exercise.name}</TableCell>
-                  <TableCell align="right">{exercise.sets}</TableCell>
-                  <TableCell align="right">{exercise.reps}</TableCell>
-                  <TableCell align="right">{exercise.weight}</TableCell>
-                </TableRow>
-              ))}
+              {exercises.sunday.map(mapFunction)}
             </TableBody>
           </Table>
         </AccordionDetails>
