@@ -12,7 +12,8 @@
     "react": "latest",
     "react-dom": "latest",
     "react-scripts": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "lint": "eslint --ext .ts --ext .tsx .",
@@ -34,6 +35,7 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "eslint": "^7.32.0",
