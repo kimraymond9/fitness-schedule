@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import AddExerciseForm from './AddExerciseForm';
 import DaysAccordion from './DaysAccordion';
 import ExercisesContext from './context/ExercisesContext';
 import {
@@ -24,7 +23,6 @@ const App = () => {
         <Typography variant="h2" gutterBottom>
           Fitness Schedule
         </Typography>
-        <AddExerciseForm />
         <DaysAccordion />
       </Container>
     </ExercisesContext.Provider>

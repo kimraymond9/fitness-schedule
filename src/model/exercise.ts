@@ -21,3 +21,8 @@ export const DEFAULT_EXERCISES: Exercises = {
   saturday: [],
   sunday: [],
 };
+
+export type ExerciseFormProps = {
+  selectedDay: string;
+  handleClose?: () => void;
+};
