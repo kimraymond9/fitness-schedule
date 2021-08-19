@@ -15,6 +15,9 @@ import ExercisesContext from './context/ExercisesContext';
 import AddExerciseDialog from './AddExerciseDialog';
 
 const DAYS_OF_THE_WEEK: DayOfWeek[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+const DAY_OF_THE_WEEK_BY_INDEX: Record<number, DayOfWeek> = {
+  0: 'sunday', 1: 'monday', 2: 'tuesday', 3: 'wednesday', 4: 'thursday', 5: 'friday', 6: 'saturday',
+};
 
 const DaysAccordion: FC = () => {
   const { exercises, setExerciseDone } = useContext(ExercisesContext);
@@ -39,7 +42,7 @@ const DaysAccordion: FC = () => {
   );
 
   const getExerciseAccordion = ((day: DayOfWeek) => (
-    <Accordion defaultExpanded key={day}>
+    <Accordion defaultExpanded={day === DAY_OF_THE_WEEK_BY_INDEX[new Date().getDay()]} key={day}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon style={{ color: theme.palette.primary.contrastText }} />}
         style={{ backgroundColor: theme.palette.primary.main }}
