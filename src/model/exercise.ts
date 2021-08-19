@@ -4,6 +4,7 @@ export interface Exercise {
   sets: string;
   reps: string;
   weight: string;
+  done: boolean;
 }
 
 export type Exercises = {
@@ -22,7 +23,11 @@ export const DEFAULT_EXERCISES: Exercises = {
   sunday: [],
 };
 
-export type ExerciseFormProps = {
+export type AddExerciseDialogProps = {
   selectedDay: string;
-  handleClose?: () => void;
+};
+
+export type AddExerciseFormProps = {
+  selectedDay: string;
+  handleClose: () => void;
 };

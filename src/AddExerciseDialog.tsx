@@ -4,12 +4,14 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import theme from './theme';
+import { useTheme } from '@material-ui/core';
 import AddExerciseForm from './AddExerciseForm';
-import { ExerciseFormProps } from './model/exercise';
+import { AddExerciseDialogProps } from './model/exercise';
 
-const AddExerciseFormDialog: FC<ExerciseFormProps> = ({ selectedDay }: ExerciseFormProps) => {
+const AddExerciseDialog: FC<AddExerciseDialogProps> = ({ selectedDay }: AddExerciseDialogProps) => {
   const [open, setOpen] = React.useState(false);
+
+  const theme = useTheme();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,7 +32,7 @@ const AddExerciseFormDialog: FC<ExerciseFormProps> = ({ selectedDay }: ExerciseF
         add exercise
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle id="form-dialog-title">Add Exercise</DialogTitle>
+        <DialogTitle>Add Exercise</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Enter the details of your exercise.
@@ -42,4 +44,4 @@ const AddExerciseFormDialog: FC<ExerciseFormProps> = ({ selectedDay }: ExerciseF
   );
 };
 
-export default AddExerciseFormDialog;
+export default AddExerciseDialog;
