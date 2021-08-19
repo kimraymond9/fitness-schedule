@@ -1,5 +1,5 @@
 import {
-  Button, TextField,
+  Button, TextField, useTheme,
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import {
@@ -7,16 +7,17 @@ import {
 } from 'react';
 import Box from '@material-ui/core/Box';
 import { v4 as uuidv4 } from 'uuid';
-import { Exercise, ExerciseFormProps, DayOfWeek } from './model/exercise';
+import { Exercise, AddExerciseFormProps, DayOfWeek } from './model/exercise';
 import ExercisesContext from './context/ExercisesContext';
-import theme from './theme';
 
-const AddExerciseForm: FC<ExerciseFormProps> = ({ selectedDay, handleClose }: ExerciseFormProps) => {
+const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose }: AddExerciseFormProps) => {
   const [name, setName] = useState('');
   const [sets, setSets] = useState('');
   const [reps, setReps] = useState('');
   const [weight, setWeight] = useState('');
   const { exercises, setExercisesForDay } = useContext(ExercisesContext);
+
+  const theme = useTheme();
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -27,8 +28,9 @@ const AddExerciseForm: FC<ExerciseFormProps> = ({ selectedDay, handleClose }: Ex
       sets,
       reps,
       weight,
+      done: false,
     };
-    if (name !== '' && handleClose) {
+    if (name !== '') {
       handleClose();
       setExercisesForDay(selectedDayOfWeek, [...exercises[selectedDayOfWeek], exercise]);
       setName('');
@@ -67,7 +69,7 @@ const AddExerciseForm: FC<ExerciseFormProps> = ({ selectedDay, handleClose }: Ex
           onChange={onNameChange}
         />
       </Box>
-      <Box display="flex" alignItems="center" mb={1}>
+      <Box display="flex" alignItems="center" mb={2}>
         <TextField
           style={{ flexGrow: 1 }}
           label="Sets"
