@@ -4,15 +4,12 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Box, Checkbox, useTheme } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import {
+  Box, Button, Checkbox, List, ListItem, ListItemIcon, ListItemText, useTheme,
+} from '@material-ui/core';
 import { DayOfWeek, Exercise } from './model/exercise';
 import ExercisesContext from './context/ExercisesContext';
-import AddExerciseDialog from './AddExerciseDialog';
+import AddExerciseButton from './AddExerciseButton';
 import DeleteDialog from './DeleteDialog';
 
 const DAYS_OF_THE_WEEK: DayOfWeek[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -21,7 +18,7 @@ const DAY_OF_THE_WEEK_BY_INDEX: Record<number, DayOfWeek> = {
 };
 
 const DaysAccordion: FC = () => {
-  const { exercises, setExerciseDone } = useContext(ExercisesContext);
+  const { exercises, setExerciseDone, uncheckAllExercises } = useContext(ExercisesContext);
 
   const theme = useTheme();
 
@@ -29,17 +26,29 @@ const DaysAccordion: FC = () => {
     setExerciseDone(day, exerciseID, done);
   };
 
+  const handleDayFinished = (day: DayOfWeek) => {
+    uncheckAllExercises(day);
+  };
+
   const getExerciseTableRow = ((day: DayOfWeek, exercise: Exercise) => (
-    <TableRow key={exercise.id}>
-      <TableCell>{exercise.name}</TableCell>
-      <TableCell align="right">{exercise.sets}</TableCell>
-      <TableCell align="right">{exercise.reps}</TableCell>
-      <TableCell align="right">{exercise.weight}</TableCell>
-      <TableCell align="right">
+    <ListItem key={exercise.id} dense divider>
+      <ListItemIcon>
         <Checkbox checked={exercise.done} onChange={(event) => handleExerciseDoneChanged(day, exercise.id, event.target.checked)} />
-      </TableCell>
-    </TableRow>
+      </ListItemIcon>
+      <ListItemText
+        primary={(
+          <Typography>
+            {exercise.name}
+          </Typography>
+          )}
+        secondary={(
+          <Typography variant="body2">
+            {`${exercise.sets} x ${exercise.reps}${exercise.weight === '' ? '' : ` x ${exercise.weight}`}`}
+          </Typography>
+          )}
+      />
       <DeleteDialog selectedDay={day} id={exercise.id} />
+    </ListItem>
   )
   );
 
@@ -52,21 +61,25 @@ const DaysAccordion: FC = () => {
         <Typography variant="h5" style={{ textTransform: 'capitalize', color: theme.palette.primary.contrastText }}>{day}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Sets</TableCell>
-              <TableCell align="right">Reps</TableCell>
-              <TableCell align="right">Weight</TableCell>
-              <TableCell align="right">Done?</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {exercises[day].map((exercise) => getExerciseTableRow(day, exercise))}
-          </TableBody>
-        </Table>
-        <AddExerciseDialog selectedDay={day} />
+        <List>
+          {exercises[day].length === 0
+            ? <Typography variant="h6" align="center">Add an exercise to get started!</Typography>
+            : exercises[day].map((exercise) => getExerciseTableRow(day, exercise))}
+        </List>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => handleDayFinished(day)}
+          style={{
+            visibility: `${exercises[day].some((exercise) => exercise.done) ? 'visible' : 'hidden'}`,
+            float: 'left',
+            marginBottom: theme.spacing(2),
+            marginTop: theme.spacing(1),
+          }}
+        >
+          Finish
+        </Button>
+        <AddExerciseButton selectedDay={day} />
       </AccordionDetails>
     </Accordion>
   )
