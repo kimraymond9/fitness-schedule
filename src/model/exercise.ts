@@ -31,3 +31,8 @@ export type AddExerciseFormProps = {
   selectedDay: string;
   handleClose: () => void;
 };
+
+export type DeleteDialogProps = {
+  selectedDay: string;
+  id: string;
+};
