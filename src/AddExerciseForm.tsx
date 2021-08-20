@@ -72,6 +72,7 @@ const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose }:
       <Box display="flex" alignItems="center" mb={2}>
         <TextField
           style={{ flexGrow: 1 }}
+          required
           label="Sets"
           name="sets"
           type="number"
@@ -81,6 +82,7 @@ const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose }:
         <ClearIcon />
         <TextField
           style={{ flexGrow: 1 }}
+          required
           label="Reps"
           name="reps"
           type="number"

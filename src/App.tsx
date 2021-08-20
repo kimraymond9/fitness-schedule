@@ -37,6 +37,24 @@ const App = () => {
     setExercises(newExercises);
   };
 
+  const uncheckAllExercises = (day: DayOfWeek) => {
+    const exercisesForDay: Exercise[] = [...exercises[day]].map((exercise) => {
+      if (exercise.done === true) {
+        return {
+          ...exercise,
+          done: false,
+        };
+      }
+      return exercise;
+    });
+    const newExercises: Exercises = {
+      ...exercises,
+      [day]: exercisesForDay,
+    };
+    window.localStorage.setItem('exercises', JSON.stringify(newExercises));
+    setExercises(newExercises);
+  };
+
   const deleteExercise = (day: DayOfWeek, exerciseID: string) => {
     const exercisesForDay: Exercise[] = [...exercises[day]].filter((exercise) => exercise.id !== exerciseID);
 
@@ -50,7 +68,7 @@ const App = () => {
 
   return (
     <ExercisesContext.Provider value={{
-      exercises, setExercisesForDay, setExerciseDone, deleteExercise,
+      exercises, setExercisesForDay, setExerciseDone, uncheckAllExercises, deleteExercise,
     }}
     >
       <Container>
