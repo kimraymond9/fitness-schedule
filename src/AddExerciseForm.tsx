@@ -19,7 +19,7 @@ const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose }:
 
   const theme = useTheme();
 
-  const handleFormSubmit = (event: FormEvent) => {
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const selectedDayOfWeek = selectedDay as DayOfWeek;
     const exercise: Exercise = {
@@ -30,7 +30,7 @@ const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose }:
       weight,
       done: false,
     };
-    if (name !== '') {
+    if (event.currentTarget.checkValidity()) {
       handleClose();
       setExercisesForDay(selectedDayOfWeek, [...exercises[selectedDayOfWeek], exercise]);
       setName('');
