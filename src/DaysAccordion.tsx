@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { DayOfWeek, Exercise } from './model/exercise';
 import ExercisesContext from './context/ExercisesContext';
 import AddExerciseDialog from './AddExerciseDialog';
+import DeleteDialog from './DeleteDialog';
 
 const DAYS_OF_THE_WEEK: DayOfWeek[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const DAY_OF_THE_WEEK_BY_INDEX: Record<number, DayOfWeek> = {
@@ -38,6 +39,7 @@ const DaysAccordion: FC = () => {
         <Checkbox checked={exercise.done} onChange={(event) => handleExerciseDoneChanged(day, exercise.id, event.target.checked)} />
       </TableCell>
     </TableRow>
+      <DeleteDialog selectedDay={day} id={exercise.id} />
   )
   );
 

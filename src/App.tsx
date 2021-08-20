@@ -37,10 +37,24 @@ const App = () => {
     setExercises(newExercises);
   };
 
+  const deleteExercise = (day: DayOfWeek, exerciseID: string) => {
+    const exercisesForDay: Exercise[] = [...exercises[day]].filter((exercise) => exercise.id !== exerciseID);
+
+    const newExercises: Exercises = {
+      ...exercises,
+      [day]: exercisesForDay,
+    };
+    window.localStorage.setItem('exercises', JSON.stringify(newExercises));
+    setExercises(newExercises);
+  };
+
   return (
-    <ExercisesContext.Provider value={{ exercises, setExercisesForDay, setExerciseDone }}>
+    <ExercisesContext.Provider value={{
+      exercises, setExercisesForDay, setExerciseDone, deleteExercise,
+    }}
+    >
       <Container>
-        <Typography variant="h2" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Fitness Schedule
         </Typography>
         <DaysAccordion />
