@@ -9,6 +9,7 @@ interface ExercisesContextType {
   setExerciseDone: (day: DayOfWeek, exerciseID: string, newDone: boolean) => void;
   uncheckAllExercises: (day: DayOfWeek) => void;
   deleteExercise: (day: DayOfWeek, exerciseID: string) => void;
+  editExercise: (day: DayOfWeek, exerciseToEdit: string, exercise: Exercise) => void;
 }
 
 const ExercisesContext = React.createContext<ExercisesContextType>({
@@ -17,6 +18,7 @@ const ExercisesContext = React.createContext<ExercisesContextType>({
   setExerciseDone: () => {},
   uncheckAllExercises: () => {},
   deleteExercise: () => {},
+  editExercise: () => {},
 });
 
 export default ExercisesContext;

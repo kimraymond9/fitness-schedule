@@ -23,16 +23,18 @@ export const DEFAULT_EXERCISES: Exercises = {
   sunday: [],
 };
 
-export type AddExerciseDialogProps = {
-  selectedDay: string;
-};
-
 export type AddExerciseFormProps = {
   selectedDay: string;
   handleClose: () => void;
+  exerciseToEdit?: Exercise;
 };
 
-export type DeleteDialogProps = {
+export type DeleteExerciseButtonProps = {
   selectedDay: string;
   id: string;
+};
+
+export type UpsertExerciseButtonProps = {
+  selectedDay: string;
+  exerciseToEdit?: Exercise;
 };

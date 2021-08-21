@@ -5,12 +5,12 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
-  Box, Button, Checkbox, List, ListItem, ListItemIcon, ListItemText, useTheme,
+  Box, Button, Checkbox, IconButton, List, ListItem, ListItemIcon, ListItemText, useTheme,
 } from '@material-ui/core';
 import { DayOfWeek, Exercise } from './model/exercise';
 import ExercisesContext from './context/ExercisesContext';
-import AddExerciseButton from './AddExerciseButton';
-import DeleteDialog from './DeleteDialog';
+import UpsertExerciseButton from './UpsertExerciseButton';
+import DeleteExerciseButton from './DeleteExerciseButton';
 
 const DAYS_OF_THE_WEEK: DayOfWeek[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const DAY_OF_THE_WEEK_BY_INDEX: Record<number, DayOfWeek> = {
@@ -47,7 +47,12 @@ const DaysAccordion: FC = () => {
           </Typography>
           )}
       />
-      <DeleteDialog selectedDay={day} id={exercise.id} />
+      <IconButton>
+        <UpsertExerciseButton selectedDay={day} exerciseToEdit={exercise} />
+      </IconButton>
+      <IconButton>
+        <DeleteExerciseButton selectedDay={day} id={exercise.id} />
+      </IconButton>
     </ListItem>
   )
   );
@@ -79,7 +84,7 @@ const DaysAccordion: FC = () => {
         >
           Finish
         </Button>
-        <AddExerciseButton selectedDay={day} />
+        <UpsertExerciseButton selectedDay={day} />
       </AccordionDetails>
     </Accordion>
   )

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 import DaysAccordion from './DaysAccordion';
 import ExercisesContext from './context/ExercisesContext';
 import {
@@ -11,6 +10,28 @@ const App = () => {
   const [exercises, setExercises] = useState<Exercises>(JSON.parse(window.localStorage.getItem('exercises') || JSON.stringify(DEFAULT_EXERCISES)));
 
   const setExercisesForDay = (day: DayOfWeek, exercisesForDay: Exercise[]) => {
+    const newExercises: Exercises = {
+      ...exercises,
+      [day]: exercisesForDay,
+    };
+    window.localStorage.setItem('exercises', JSON.stringify(newExercises));
+    setExercises(newExercises);
+  };
+
+  const editExercise = (day: DayOfWeek, exerciseID: string, newExercise: Exercise) => {
+    const exercisesForDay: Exercise[] = [...exercises[day]].map((exercise) => {
+      if (exercise.id === exerciseID) {
+        return {
+          id: newExercise.id,
+          name: newExercise.name,
+          sets: newExercise.sets,
+          reps: newExercise.reps,
+          weight: newExercise.weight,
+          done: newExercise.done,
+        };
+      }
+      return exercise;
+    });
     const newExercises: Exercises = {
       ...exercises,
       [day]: exercisesForDay,
@@ -68,13 +89,11 @@ const App = () => {
 
   return (
     <ExercisesContext.Provider value={{
-      exercises, setExercisesForDay, setExerciseDone, uncheckAllExercises, deleteExercise,
+      exercises, setExercisesForDay, setExerciseDone, uncheckAllExercises, deleteExercise, editExercise,
     }}
     >
       <Container>
-        <Typography variant="h4" gutterBottom>
-          Fitness Schedule
-        </Typography>
+
         <DaysAccordion />
       </Container>
     </ExercisesContext.Provider>

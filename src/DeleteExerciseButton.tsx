@@ -5,12 +5,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { IconButton, ListItemSecondaryAction } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExercisesContext from './context/ExercisesContext';
-import { DayOfWeek, DeleteDialogProps } from './model/exercise';
+import { DayOfWeek, DeleteExerciseButtonProps } from './model/exercise';
 
-const DeleteDialog: FC<DeleteDialogProps> = ({ selectedDay, id }: DeleteDialogProps) => {
+const DeleteExerciseButton: FC<DeleteExerciseButtonProps> = ({ selectedDay, id }: DeleteExerciseButtonProps) => {
   const [open, setOpen] = React.useState(false);
 
   const { deleteExercise } = useContext(ExercisesContext);
@@ -29,11 +28,7 @@ const DeleteDialog: FC<DeleteDialogProps> = ({ selectedDay, id }: DeleteDialogPr
 
   return (
     <div>
-      <ListItemSecondaryAction>
-        <IconButton onClick={handleClickOpen} edge="end">
-          <DeleteIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
+      <DeleteIcon onClick={handleClickOpen} />
       <Dialog
         open={open}
         onClose={handleClose}
@@ -57,4 +52,4 @@ const DeleteDialog: FC<DeleteDialogProps> = ({ selectedDay, id }: DeleteDialogPr
   );
 };
 
-export default DeleteDialog;
+export default DeleteExerciseButton;

@@ -10,12 +10,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { Exercise, AddExerciseFormProps, DayOfWeek } from './model/exercise';
 import ExercisesContext from './context/ExercisesContext';
 
-const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose }: AddExerciseFormProps) => {
-  const [name, setName] = useState('');
-  const [sets, setSets] = useState('');
-  const [reps, setReps] = useState('');
-  const [weight, setWeight] = useState('');
-  const { exercises, setExercisesForDay } = useContext(ExercisesContext);
+const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose, exerciseToEdit }: AddExerciseFormProps) => {
+  const [name, setName] = useState(exerciseToEdit ? exerciseToEdit.name : '');
+  const [sets, setSets] = useState(exerciseToEdit ? exerciseToEdit.sets : '');
+  const [reps, setReps] = useState(exerciseToEdit ? exerciseToEdit.reps : '');
+  const [weight, setWeight] = useState(exerciseToEdit ? exerciseToEdit.weight : '');
+  const { exercises, setExercisesForDay, editExercise } = useContext(ExercisesContext);
 
   const theme = useTheme();
 
@@ -32,11 +32,11 @@ const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose }:
     };
     if (event.currentTarget.checkValidity()) {
       handleClose();
-      setExercisesForDay(selectedDayOfWeek, [...exercises[selectedDayOfWeek], exercise]);
-      setName('');
-      setSets('');
-      setReps('');
-      setWeight('');
+      if (!exerciseToEdit) {
+        setExercisesForDay(selectedDayOfWeek, [...exercises[selectedDayOfWeek], exercise]);
+      } else {
+        editExercise(selectedDayOfWeek, exerciseToEdit.id, exercise);
+      }
     }
   };
 
@@ -103,7 +103,6 @@ const AddExerciseForm: FC<AddExerciseFormProps> = ({ selectedDay, handleClose }:
         style={{ float: 'right', marginLeft: theme.spacing(0.5) }}
         variant="contained"
         type="submit"
-        color="primary"
       >
         add
       </Button>
